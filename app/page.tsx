@@ -1,8 +1,11 @@
 'use client'
 import { FormEvent } from "react";
 import { login } from "./service/auth/login.service";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter()
+
   const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = e.currentTarget
@@ -10,7 +13,8 @@ export default function Home() {
     const password = formData.password.value
 
     const loginData = await login(email, password)
-    console.log("🚀 ~ handleSubmit ~ loginData:", loginData)    
+    console.log("🚀 ~ handleSubmit ~ loginData:", loginData)   
+    router.push('/views/createAccount')
   }
 
   return (
@@ -19,14 +23,14 @@ export default function Home() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email: 
           <input
-          className=" text-black" 
+            className="text-black" 
             type="text" 
             name="email" 
           />
         </label>
         <label htmlFor="password">Password: 
           <input
-          className=" text-black" 
+            className="text-black" 
             type="text" 
             name="password" 
           />
